@@ -1,25 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import Statistics from './components/Statistic/Statistic.jsx';
+import Section from './components/Section/Section.jsx';
+import FeedbackOptions from './components/FeedBackOptions/FeedBackOptions.jsx';
+import Notification from './components/Notification/Notification.jsx';
+export default class App extends Component {
+  state = {
+    good: 0,
+    neutral: 0,
+    bad: 0,
+  };
+  toSetState = e => {
+    this.setState(prevState => ({
+      [e.target.name]: prevState[e.target.name] + 1,
+    }));
+  };
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  countTotalFeedback = () => {
+    return this.state.good + this.state.bad + this.state.neutral;
+  };
+
+  countPositiveFeedbackPercentage = () => {
+    return Math.floor((this.state.good * 100) / this.countTotalFeedback());
+  };
+
+  render() {
+    let total = this.countTotalFeedback();
+
+    return (
+      <>
+        <Section title="Please leave feeaback">
+          <FeedbackOptions onLeaveFeedback={this.toSetState} />
+        </Section>
+        {total === 0 ? (
+          <Notification message="No feedback given" />
+        ) : (
+          <Section>
+            <Statistics
+              good={this.state.good}
+              neutral={this.state.neutral}
+              bad={this.state.bad}
+              total={this.countTotalFeedback()}
+              positiveFeedbackPercentage={this.countPositiveFeedbackPercentage()}
+            />
+          </Section>
+        )}
+      </>
+    );
+  }
 }
-
-export default App;
