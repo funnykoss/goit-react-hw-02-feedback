@@ -3,6 +3,7 @@ import Statistics from './components/Statistic/Statistic.jsx';
 import Section from './components/Section/Section.jsx';
 import FeedbackOptions from './components/FeedBackOptions/FeedBackOptions.jsx';
 import Notification from './components/Notification/Notification.jsx';
+import s from './App.module.css';
 export default class App extends Component {
   state = {
     good: 0,
@@ -27,7 +28,7 @@ export default class App extends Component {
     let total = this.countTotalFeedback();
 
     return (
-      <>
+      <section className={s.section}>
         <Section title="Please leave feeaback">
           <FeedbackOptions onLeaveFeedback={this.toSetState} />
         </Section>
@@ -44,7 +45,7 @@ export default class App extends Component {
             />
           </Section>
         )}
-      </>
+      </section>
     );
   }
 }
