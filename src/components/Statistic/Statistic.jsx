@@ -1,5 +1,6 @@
 import React from 'react';
 import s from '../Statistic/Statistics.module.css';
+import PropTypes from 'prop-types';
 
  export default function Statistics ({ good, neutral, bad, total, positiveFeedbackPercentage}){
     return (
@@ -28,4 +29,11 @@ import s from '../Statistic/Statistics.module.css';
 }
 
  
- 
+Statistics.prototype = {
+    good: PropTypes.number.isRequired,
+  neutral: PropTypes.number.isRequired,
+  bad: PropTypes.number.isRequired,
+  total: PropTypes.number.isRequired,
+  positiveFeedbackPercentage: PropTypes.number.isRequired,
+     
+ }
